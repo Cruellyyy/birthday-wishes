@@ -19,7 +19,30 @@
 </head>
 
 <body>
-    <div id="wrapper">
+    <div id="birthdayTimer" class="timer-container">
+        <h1>Birthday Countdown</h1>
+        <div class="countdown">
+            <div class="time-section">
+                <span class="days">00</span>
+                <p>Days</p>
+            </div>
+            <div class="time-section">
+                <span class="hours">00</span>
+                <p>Hours</p>
+            </div>
+            <div class="time-section">
+                <span class="minutes">00</span>
+                <p>Minutes</p>
+            </div>
+            <div class="time-section">
+                <span class="seconds">00</span>
+                <p>Seconds</p>
+            </div>
+        </div>
+        <p class="timer-message">Until the birthday surprise!</p>
+    </div>
+
+    <div id="wrapper" style="display: none;">
         <div class="flag__birthday">
             <img src="./images/1.png" alt="" width="350" class="flag__left">
             <img src="./images/1.png" alt="" width="350" class="flag__right">
@@ -187,150 +210,203 @@
 
 </body>
 <script>
-    let datetxt = "29th Augest";
-    let datatxtletter = "My love. You are a very special girl. I always silently thank you for coming into my life. Today, I wish you all the best, lots of health, and lots of joy. I always hope we will celebrate many more birthdays like this together. Happy birthday to you.💕";
-    let titleLetter = "To you";
-    let charArrDate = datetxt.split('');
-    let charArrDateLetter = datatxtletter.split('');
-    let charArrTitle = titleLetter.split('');
-    let currentIndex = 0;
-    let currentIndexLetter = 0;
-    let currentIndexTitle = 0;
-    let date__of__birth = document.querySelector(".date__of__birth span");
-    let text__letter = document.querySelector(".text__letter p");
-    setTimeout(function () {
-        timeDatetxt = setInterval(function () {
-            if (currentIndex < charArrDate.length) {
-                date__of__birth.textContent += charArrDate[currentIndex];
-                currentIndex++;
-            }
-            else {
-                let i = document.createElement("i");
-                i.className = "fa-solid fa-star"
-                document.querySelector(".date__of__birth").prepend(i)
-                document.querySelector(".date__of__birth").appendChild(i.cloneNode(true))
-                clearInterval(timeDatetxt)
-            }
-        }, 100)
-    }, 12000)
+    // Birthday date configuration
+    const birthdayDate = new Date('August 29, 2025 00:00:00').getTime();
+    const timerElement = document.getElementById('birthdayTimer');
+    const wrapperElement = document.getElementById('wrapper');
 
-    var intervalContent;
-    var intervalTitle;
-    $("#btn__letter").on("click", function () {
-        $(".box__letter").slideDown()
+    // Check if it's already birthday time
+    function isBirthdayTime() {
+        const now = new Date().getTime();
+        return now >= birthdayDate;
+    }
+
+    // Update countdown timer
+    function updateTimer() {
+        const now = new Date().getTime();
+        const distance = birthdayDate - now;
+
+        if (distance < 0) {
+            // It's birthday time!
+            timerElement.style.display = 'none';
+            wrapperElement.style.display = 'block';
+            // Initialize birthday page
+            initBirthdayPage();
+            return;
+        }
+
+        // Calculate time units
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Update timer display
+        document.querySelector('.days').textContent = days.toString().padStart(2, '0');
+        document.querySelector('.hours').textContent = hours.toString().padStart(2, '0');
+        document.querySelector('.minutes').textContent = minutes.toString().padStart(2, '0');
+        document.querySelector('.seconds').textContent = seconds.toString().padStart(2, '0');
+    }
+
+    // Initialize birthday page functionality
+    function initBirthdayPage() {
+        // Your existing birthday page initialization code
+        let datetxt = "29th August";
+        let datatxtletter = "My love. You are a very special girl. I always silently thank you for coming into my life. Today, I wish you all the best, lots of health, and lots of joy. I always hope we will celebrate many more birthdays like this together. Happy birthday to you.💕";
+        let titleLetter = "To you";
+        let charArrDate = datetxt.split('');
+        let charArrDateLetter = datatxtletter.split('');
+        let charArrTitle = titleLetter.split('');
+        let currentIndex = 0;
+        let currentIndexLetter = 0;
+        let currentIndexTitle = 0;
+        let date__of__birth = document.querySelector(".date__of__birth span");
+        let text__letter = document.querySelector(".text__letter p");
         setTimeout(function () {
-            $(".letter__border").slideDown();
-        }, 1000)
-        setTimeout(function () {
-            intervalTitle = setInterval(function () {
-                if (currentIndexTitle < charArrTitle.length) {
-                    document.querySelector(".title__letter").textContent += charArrTitle[currentIndexTitle];
-                    let i = document.createElement("i");
-                    i.className = "fa-solid fa-heart"
-                    document.querySelector(".title__letter").appendChild(i)
-                    currentIndexTitle++;
+            timeDatetxt = setInterval(function () {
+                if (currentIndex < charArrDate.length) {
+                    date__of__birth.textContent += charArrDate[currentIndex];
+                    currentIndex++;
                 }
                 else {
-                    clearInterval(intervalTitle)
+                    let i = document.createElement("i");
+                    i.className = "fa-solid fa-star"
+                    document.querySelector(".date__of__birth").prepend(i)
+                    document.querySelector(".date__of__birth").appendChild(i.cloneNode(true))
+                    clearInterval(timeDatetxt)
                 }
             }, 100)
-        }, 2000)
-        setTimeout(function () {
-            document.querySelector("#heart__letter").classList.add("animationOp");
-            document.querySelector(".love__img").classList.add("animationOp");
-            document.querySelector("#mewmew").classList.add("animationOp");
-        }, 2800)
-        setTimeout(function () {
-            document.querySelectorAll(".heart").forEach((item) => {
-                item.classList.add("animation")
-            })
-        }, 3500)
-        setTimeout(function () {
-            intervalContent = setInterval(function () {
-                if (currentIndexLetter < charArrDateLetter.length) {
-                    text__letter.textContent += charArrDateLetter[currentIndexLetter];
-                    currentIndexLetter++;
-                }
-                else {
-                    clearInterval(intervalContent)
-                }
-            }, 50)
-        }, 6000)
-    })
-    $(".close").on("click", function () {
-        clearInterval(intervalContent)
-        document.querySelector(".title__letter").textContent = "";
-        text__letter.textContent = "";
-        currentIndexLetter = 0
-        currentIndexTitle = 0
-        document.querySelector("#heart__letter").classList.remove("animationOp");
-        document.querySelector(".love__img").classList.remove("animationOp");
-        document.querySelector("#mewmew").classList.remove("animationOp");
-        document.querySelectorAll(".heart").forEach((item) => {
-            item.classList.remove("animation")
+        }, 12000)
+
+        var intervalContent;
+        var intervalTitle;
+        $("#btn__letter").on("click", function () {
+            $(".box__letter").slideDown()
+            setTimeout(function () {
+                $(".letter__border").slideDown();
+            }, 1000)
+            setTimeout(function () {
+                intervalTitle = setInterval(function () {
+                    if (currentIndexTitle < charArrTitle.length) {
+                        document.querySelector(".title__letter").textContent += charArrTitle[currentIndexTitle];
+                        let i = document.createElement("i");
+                        i.className = "fa-solid fa-heart"
+                        document.querySelector(".title__letter").appendChild(i)
+                        currentIndexTitle++;
+                    }
+                    else {
+                        clearInterval(intervalTitle)
+                    }
+                }, 100)
+            }, 2000)
+            setTimeout(function () {
+                document.querySelector("#heart__letter").classList.add("animationOp");
+                document.querySelector(".love__img").classList.add("animationOp");
+                document.querySelector("#mewmew").classList.add("animationOp");
+            }, 2800)
+            setTimeout(function () {
+                document.querySelectorAll(".heart").forEach((item) => {
+                    item.classList.add("animation")
+                })
+            }, 3500)
+            setTimeout(function () {
+                intervalContent = setInterval(function () {
+                    if (currentIndexLetter < charArrDateLetter.length) {
+                        text__letter.textContent += charArrDateLetter[currentIndexLetter];
+                        currentIndexLetter++;
+                    }
+                    else {
+                        clearInterval(intervalContent)
+                    }
+                }, 50)
+            }, 6000)
         })
-        $(".box__letter").slideUp();
-        $(".letter__border").slideUp();
-    })
+        $(".close").on("click", function () {
+            clearInterval(intervalContent)
+            document.querySelector(".title__letter").textContent = "";
+            text__letter.textContent = "";
+            currentIndexLetter = 0
+            currentIndexTitle = 0
+            document.querySelector("#heart__letter").classList.remove("animationOp");
+            document.querySelector(".love__img").classList.remove("animationOp");
+            document.querySelector("#mewmew").classList.remove("animationOp");
+            document.querySelectorAll(".heart").forEach((item) => {
+                item.classList.remove("animation")
+            })
+            $(".box__letter").slideUp();
+            $(".letter__border").slideUp();
+        })
 
 
 
-    let mailBox = document.querySelector('.mail')
-    let boxmail = document.querySelector('.boxMail')
-    var close = document.querySelector('.fa-xmark')
-    mailBox.onclick = function () {
-        mailBox.classList.toggle('active')
-        boxmail.classList.add('active')
-    }
+        let mailBox = document.querySelector('.mail')
+        let boxmail = document.querySelector('.boxMail')
+        var close = document.querySelector('.fa-xmark')
+        mailBox.onclick = function () {
+            mailBox.classList.toggle('active')
+            boxmail.classList.add('active')
+        }
 
-    close.addEventListener('click', function () {
-        boxmail.classList.remove('active')
-    })
+        close.addEventListener('click', function () {
+            boxmail.classList.remove('active')
+        })
 
-    const mailPages = document.querySelectorAll('.mail-page');
-    const mailPrevBtn = document.querySelector('.mail-prev-btn');
-    const mailNextBtn = document.querySelector('.mail-next-btn');
-    let currentMailPage = 1;
-    const totalMailPages = mailPages.length;
+        const mailPages = document.querySelectorAll('.mail-page');
+        const mailPrevBtn = document.querySelector('.mail-prev-btn');
+        const mailNextBtn = document.querySelector('.mail-next-btn');
+        let currentMailPage = 1;
+        const totalMailPages = mailPages.length;
 
-    function showMailPage(pageNumber) {
-        mailPages.forEach(page => {
-            page.classList.remove('active');
+        function showMailPage(pageNumber) {
+            mailPages.forEach(page => {
+                page.classList.remove('active');
+            });
+            document.querySelector(`[data-mail-page="${pageNumber}"]`).classList.add('active');
+
+            // Update button visibility
+            mailPrevBtn.style.visibility = currentMailPage === 1 ? 'hidden' : 'visible';
+            mailNextBtn.style.visibility = currentMailPage === totalMailPages ? 'hidden' : 'visible';
+        }
+
+        mailNextBtn.addEventListener('click', () => {
+            if (currentMailPage < totalMailPages) {
+                currentMailPage++;
+                showMailPage(currentMailPage);
+            }
         });
-        document.querySelector(`[data-mail-page="${pageNumber}"]`).classList.add('active');
 
-        // Update button visibility
-        mailPrevBtn.style.visibility = currentMailPage === 1 ? 'hidden' : 'visible';
-        mailNextBtn.style.visibility = currentMailPage === totalMailPages ? 'hidden' : 'visible';
+        mailPrevBtn.addEventListener('click', () => {
+            if (currentMailPage > 1) {
+                currentMailPage--;
+                showMailPage(currentMailPage);
+            }
+        });
+
+        // Update the existing mailBox click handler
+        mailBox.onclick = function () {
+            mailBox.classList.toggle('active');
+            boxmail.classList.add('active');
+            currentMailPage = 1;
+            showMailPage(1);
+        }
+
+        // Update the existing close click handler
+        close.addEventListener('click', function () {
+            boxmail.classList.remove('active');
+            currentMailPage = 1;
+        })
     }
 
-    mailNextBtn.addEventListener('click', () => {
-        if (currentMailPage < totalMailPages) {
-            currentMailPage++;
-            showMailPage(currentMailPage);
-        }
-    });
-
-    mailPrevBtn.addEventListener('click', () => {
-        if (currentMailPage > 1) {
-            currentMailPage--;
-            showMailPage(currentMailPage);
-        }
-    });
-
-    // Update the existing mailBox click handler
-    mailBox.onclick = function () {
-        mailBox.classList.toggle('active');
-        boxmail.classList.add('active');
-        currentMailPage = 1;
-        showMailPage(1);
+    // Check if it's birthday time when page loads
+    if (isBirthdayTime()) {
+        timerElement.style.display = 'none';
+        wrapperElement.style.display = 'block';
+        initBirthdayPage();
+    } else {
+        // Start countdown timer
+        updateTimer();
+        setInterval(updateTimer, 1000);
     }
-
-    // Update the existing close click handler
-    close.addEventListener('click', function () {
-        boxmail.classList.remove('active');
-        currentMailPage = 1;
-    })
 </script>
 
 </html>

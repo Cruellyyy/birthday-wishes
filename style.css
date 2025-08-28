@@ -1111,3 +1111,53 @@ body {
     transform: translateY(0);
     transition-delay: 0.3s;
 }
+
+.timer-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--color-pink);
+    text-align: center;
+}
+
+.timer-container h1 {
+    color: var(--color-text-pink);
+    font-family: "Titan One", sans-serif;
+    text-shadow: 2px 2px var(--color-black);
+    margin-bottom: 2rem;
+}
+
+.countdown {
+    display: flex;
+    gap: 2rem;
+}
+
+.time-section {
+    background: var(--color-white);
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    border: 3px solid var(--color-black);
+    box-shadow: 0 4px 0 var(--color-black);
+}
+
+.time-section span {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--color-text-pink);
+    font-family: "Titan One", sans-serif;
+}
+
+.time-section p {
+    margin-top: 0.5rem;
+    color: var(--color-black);
+    font-family: "Sriracha", cursive;
+}
+
+.timer-message {
+    margin-top: 2rem;
+    font-family: "Dancing Script", cursive;
+    font-size: 1.5rem;
+    color: var(--color-black);
+}
