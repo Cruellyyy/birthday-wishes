@@ -1187,3 +1187,79 @@ body {
     object-fit: cover;
     object-position: center;
 }
+
+/* Add at the end of your CSS file */
+.minecraft-title {
+    position: absolute;
+    top: -45px;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    font-family: "Minecraft", "Coiny", sans-serif;  /* Changed font */
+    color: #FFFF00;  /* Changed to bright yellow */
+    font-size: 2rem;
+    text-shadow: 2px 2px #45283c;  /* Minecraft-style shadow */
+    opacity: 0;
+    z-index: 10;
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);  /* Bouncy animation */
+    background: linear-gradient(45deg, #FFD700, #FFA500);  /* Gold gradient */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding: 10px;
+}
+
+.mail-page.active .minecraft-title {
+    transform: translateX(-50%) scale(1.2);  /* Bigger pop */
+    opacity: 1;
+    animation: minecraftPop 0.8s ease-out forwards;
+}
+
+@keyframes minecraftPop {
+    0% {
+        transform: translateX(-50%) scale(0);
+    }
+    50% {
+        transform: translateX(-50%) scale(1.2);
+    }
+    75% {
+        transform: translateX(-50%) scale(0.9);
+    }
+    100% {
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+/* Add at the end of your CSS file */
+.video-container.full {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    opacity: 1;
+    transform: none;
+    border-radius: 0;
+    overflow: hidden;
+}
+
+.video-container.full video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: #000;
+}
+
+.mail-page .video-container {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.mail-page.active .video-container {
+    opacity: 1;
+}
+
+/* Add media query for mobile responsiveness */
+@media screen and (max-width: 658px) {
+    .video-container.full video {
+        object-fit: contain;
+    }
+}
