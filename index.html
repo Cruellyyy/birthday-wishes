@@ -283,6 +283,10 @@
         </div>
     </div>
 
+    <audio id="birthdaySong" loop>
+        <source src="audio/birthday-song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 </body>
 <script>
     // Birthday date configuration
@@ -325,6 +329,29 @@
 
     // Initialize birthday page functionality
     function initBirthdayPage() {
+        // Play birthday song
+        const birthdaySong = document.getElementById('birthdaySong');
+        birthdaySong.volume = 0.5; // Set volume to 50%
+        
+        // Add play button
+        const playButton = document.createElement('button');
+        playButton.innerHTML = '<i class="fa-solid fa-music"></i>';
+        playButton.className = 'music-toggle';
+        document.body.appendChild(playButton);
+
+        let isMusicPlaying = false;
+        
+        playButton.addEventListener('click', () => {
+            if (isMusicPlaying) {
+                birthdaySong.pause();
+                playButton.innerHTML = '<i class="fa-solid fa-music"></i>';
+            } else {
+                birthdaySong.play();
+                playButton.innerHTML = '<i class="fa-solid fa-pause"></i>';
+            }
+            isMusicPlaying = !isMusicPlaying;
+        });
+
         // Your existing birthday page initialization code
         let datetxt = "29th August";
         let datatxtletter = "Wishing you a day filled with love, joy, and all the things that make you smile. Happy Birthday!";
